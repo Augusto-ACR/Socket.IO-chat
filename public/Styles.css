@@ -1,0 +1,131 @@
+ @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a192f, #1e3a8a);
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Botón */
+button {
+  padding: 12px 30px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  background: linear-gradient(180deg, #e74c3c, #ff6b6b);
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(180deg, #c0392b, #ff4d4d);
+}
+
+/* Tarjeta de información */
+.card {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  padding: 30px 40px;
+  width: 90%;
+  max-width: 500px;
+  margin-top: 20px;
+}
+
+.card p {
+  font-size: 1.4rem;
+  margin: 15px 0;
+}
+
+/* Números destacados */
+.card span {
+  display: block;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-top: 10px;
+  color: #00ffcc;
+}
+
+ .turnero-container {
+        display: flex;
+        width: 90%;
+        max-width: 1200px;
+        height: 80vh;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .main-turn {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-right: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .main-turn h1 {
+        font-size: 3.5rem;
+        margin-bottom: 10px;
+      }
+
+      .main-turn h2 {
+        font-size: 2.5rem;
+        color: #7ec8ff;
+        margin-bottom: 20px;
+      }
+
+      .sidebar {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .sidebar h3 {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+      }
+
+      .recent-turns {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .recent-turns li {
+        background: rgba(255, 255, 255, 0.1);
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .footer-info {
+        font-size: 1rem;
+        text-align: center;
+        opacity: 0.85;
+      }

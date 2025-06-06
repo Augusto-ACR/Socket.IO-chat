@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Sacar turno</title>
+    <link rel="stylesheet" href="Styles.css">
+  </head>
+  <body>
+    <button id="input">Sacar turno</button>
+
+    <div class="card">
+      <p>Su turno es el: <span id="valor">0</span></p>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const input = document.getElementById('input');
+      const spanValor = document.getElementById('valor');
+
+      input.addEventListener('click', () => {
+        socket.emit('sacarTurno');
+      });
+      
+      // Recibe el turno asignado desde el servidor
+      socket.on('turnoAsignado', (numero) => {
+        console.log('Turno asignado:', numero);
+        spanValor.innerText = numero;
+      });
+    </script>
+  </body>
+</html>
