@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('🔌 Usuario conectado');
+  console.log('Usuario conectado');
 
   // Enviar datos iniciales
   socket.emit('estadoInicial', {
@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
   socket.on('sacarTurno', () => {
     if (ultimoTurno < 100) {
       ultimoTurno++;
-      console.log(`🎟️  Turno entregado: ${ultimoTurno}`);
+      console.log(`Turno entregado: ${ultimoTurno}`);
 
       // Enviar turno al cliente que lo pidió
       socket.emit('turnoAsignado', ultimoTurno);
@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
       io.emit('actualizarPantalla', {
         turnoActual,
         ultimoTurno,
+        turnosAtendidos: turnoActual,
         anteriores: [...turnosAnteriores].slice(-3).reverse()
       });
     }
@@ -51,22 +52,23 @@ io.on('connection', (socket) => {
     if (turnoActual < ultimoTurno) {
       turnoActual++;
       turnosAnteriores.push(turnoActual - 1);
-      console.log(`✅ Atendiendo turno: ${turnoActual}`);
+      console.log(`Atendiendo turno: ${turnoActual}`);
 
       // Notificar a todos
       io.emit('actualizarPantalla', {
         turnoActual,
         ultimoTurno,
+        turnosAtendidos: turnoActual,
         anteriores: [...turnosAnteriores].slice(-3).reverse()
       });
     }
   });
 
   socket.on('disconnect', () => {
-    console.log('❌ Usuario desconectado');
+    console.log('Usuario desconectado');
   });
 });
 
 server.listen(3000, () => {
-  console.log('🚀 Servidor corriendo en http://localhost:3000');
+  console.log(' Servidor corriendo en http://localhost:3000');
 });

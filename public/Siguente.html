@@ -12,7 +12,10 @@
     <div class="card">
       <p>BOX 1: <span id="valor">0</span></p>
       <p>Siguiente N°: <span id="valorSiguiente">0</span></p>
+      <p>Turnos atendidos hoy: <span id="atendidos">0</span></p>
     </div>
+
+    <audio id="sonidoTurno" src="sonido.mp3" preload="auto"></audio>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -21,6 +24,7 @@
       const btnSig = document.getElementById("Sig");
       const valor = document.getElementById("valor");
       const valorSiguiente = document.getElementById("valorSiguiente");
+      const sonidoTurno = document.getElementById("sonidoTurno");
 
       let turnoActual = 0;
       let ultimoTurno = 0;
@@ -32,6 +36,7 @@
 
         valor.innerText = turnoActual;
         valorSiguiente.innerText = turnoActual < ultimoTurno ? turnoActual + 1 : "-";
+        sonidoTurno.play();
       });
 
       // Estado inicial
