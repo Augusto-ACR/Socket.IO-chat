@@ -9,66 +9,27 @@ const server = createServer(app);
 const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static('public'));
-
-let turnoActual = 0;
-let ultimoTurno = 0;
-const turnosAnteriores = [];
 
 app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, 'index.html'));
+  res.sendFile(join(__dirname, '/public/index.html'));
 });
 
 io.on('connection', (socket) => {
-  console.log('Usuario conectado');
+  console.log('a user connected');
+});
 
-  // Enviar datos iniciales
-  socket.emit('estadoInicial', {
-    turnoActual,
-    ultimoTurno,
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
   });
+});
 
-  // Cuando alguien saca turno
-  socket.on('sacarTurno', () => {
-    if (ultimoTurno < 100) {
-      ultimoTurno++;
-      console.log(`Turno entregado: ${ultimoTurno}`);
-
-      // Enviar turno al cliente que lo pidió
-      socket.emit('turnoAsignado', ultimoTurno);
-
-      // Actualizar pantallas
-      io.emit('actualizarPantalla', {
-        turnoActual,
-        ultimoTurno,
-        turnosAtendidos: turnoActual,
-        anteriores: [...turnosAnteriores].slice(-3).reverse()
-      });
-    }
-  });
-
-  // Cuando el box atiende al siguiente
-  socket.on('siguienteTurno', () => {
-    if (turnoActual < ultimoTurno) {
-      turnoActual++;
-      turnosAnteriores.push(turnoActual - 1);
-      console.log(`Atendiendo turno: ${turnoActual}`);
-
-      // Notificar a todos
-      io.emit('actualizarPantalla', {
-        turnoActual,
-        ultimoTurno,
-        turnosAtendidos: turnoActual,
-        anteriores: [...turnosAnteriores].slice(-3).reverse()
-      });
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Usuario desconectado');
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
   });
 });
 
 server.listen(3000, () => {
-  console.log(' Servidor corriendo en http://localhost:3000');
+  console.log('server running at http://localhost:3000');
 });
